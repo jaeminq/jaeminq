@@ -1,9 +1,153 @@
 <!DOCTYPE html>
-<head> </head>
-<body> 
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Event Delegation Drag & Drop</title>
 
-things to study
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background: #f4f4f4;
+}
 
-study notes
+.box {
+    position: absolute;
+    padding: 10px;
+    border: 1px solid #555;
+    background: #fff8a6;
+    border-radius: 5px;
+    cursor: grab;
+    user-select: none;
+    box-sizing: border-box;
+}
+
+.box:active {
+    cursor: grabbing;
+}
+</style>
+</head>
+
+<body>
+<button id="addBoxBtn">add box</button>
+<input type="file" id="loadBtn">
+<button id="downloadBtn">download note</button>
+<script>
+// Model
+const boxes = {"3":{"x":374,"y":150,"text":"text"},"4":{"x":650,"y":375,"text":"text"},"5":{"x":374,"y":375,"text":"text"},"6":{"x":374,"y":256,"text":"text"},"7":{"x":875,"y":252,"text":"text"},"8":{"x":877,"y":313,"text":"text"},"9":{"x":30,"y":30,"text":"text"},"box1":{"x":76,"y":219,"text":"Things to study"},"box2":{"x":52,"y":630,"text":"Study notes"},"box3":{"x":39,"y":725,"text":"Homework"}};
+const ID=(()=>{
+    next=Object.keys(boxes).length;
+    return ()=> next++;
+})()
+// ---------- Render ----------
+function renderBoxes() {
+    for (const id in boxes) {
+        renderBox(id, boxes[id]);
+    }
+}
+function renderBox(id, box){
+
+    const div = document.createElement("div");
+
+    div.id = id;
+    div.className = "box";
+    div.textContent = box.text;
+    div.contentEditable = true;
+
+    div.style.left = box.x + "px";
+    div.style.top = box.y + "px";
+    
+    document.body.appendChild(div);
+}
+
+renderBoxes();
+
+// ---------- Event Delegation ----------
+let activeBox = null;
+let offsetX = 0;
+let offsetY = 0;
+
+document.addEventListener("mousedown", (e) => {
+
+    if (!e.target.classList.contains("box"))
+        return;
+
+    activeBox = e.target;
+
+    offsetX = e.clientX - activeBox.offsetLeft;
+    offsetY = e.clientY - activeBox.offsetTop;
+
+    activeBox.style.zIndex = 1000;
+});
+
+document.addEventListener("mousemove", (e) => {
+
+    if (!activeBox)
+        return;
+
+    const x = e.clientX - offsetX;
+    const y = e.clientY - offsetY;
+
+    activeBox.style.left = x + "px";
+    activeBox.style.top = y + "px";
+
+    // Keep model synchronized
+    boxes[activeBox.id].x = x;
+    boxes[activeBox.id].y = y;
+    boxes[activeBox.id].text = JSON.JSON(activeBox.textContent);
+});
+
+document.addEventListener("mouseup", () => {
+
+    if (!activeBox)
+        return;
+
+    activeBox.style.zIndex = "";
+    activeBox = null;
+
+    console.log(boxes); // Current positions
+});
+
+
+addBoxBtn.onclick=()=>{
+    const id=ID();
+    const box={x: 30, y: 30, text: "text"};
+    boxes[id]=box;
+    renderBox(id, box);
+}
+
+downloadBtn.onclick=()=>{
+
+    const data = JSON.stringify(boxes, null, 2);
+
+    const blob = new Blob(
+        [data],
+        {type:"application/json"}
+    );
+
+    const link = document.createElement("a");
+
+    link.href = URL.createObjectURL(blob);
+    link.download = "boxes.json";
+
+    link.click();
+}
+
+loadBtn.onclick= e => {
+        const file = e.target.files[0];
+
+        const reader = new FileReader();
+        reader.onload = function(){
+            const data = JSON.parse(reader.result);
+            Object.assign(boxes, data);
+            document.querySelectorAll(".box").forEach(box => box.remove());
+            renderBoxes();
+        };
+    reader.readAsText(file);
+    };
+</script>
 
 </body>
+</html>
