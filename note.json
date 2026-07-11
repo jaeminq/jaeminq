@@ -1,0 +1,112 @@
+{
+  "3": {
+    "x": 383,
+    "y": 150,
+    "text": "calculusmultivariable calculus - stewartcalculus 1, 2 - apostol"
+  },
+  "4": {
+    "x": 658,
+    "y": 303,
+    "text": "algebraic topology"
+  },
+  "5": {
+    "x": 384,
+    "y": 354,
+    "text": "abstract algebra"
+  },
+  "6": {
+    "x": 383,
+    "y": 259,
+    "text": "linear algebra linear algebra - H&K"
+  },
+  "7": {
+    "x": 916,
+    "y": 245,
+    "text": "category theory"
+  },
+  "8": {
+    "x": 918,
+    "y": 339,
+    "text": "manifolds ( poincare )"
+  },
+  "9": {
+    "x": 386,
+    "y": 588,
+    "text": "number theory"
+  },
+  "10": {
+    "x": 658,
+    "y": 393,
+    "text": "text"
+  },
+  "11": {
+    "x": 920,
+    "y": 421,
+    "text": "Lie algebra"
+  },
+  "12": {
+    "x": 920,
+    "y": 668,
+    "text": "elliptic curve"
+  },
+  "13": {
+    "x": 515,
+    "y": 458,
+    "text": "analysisRudin 1, 2, 3princeton 1, 2, 3, 4"
+  },
+  "14": {
+    "x": 656,
+    "y": 638,
+    "text": "probability & statistic"
+  },
+  "15": {
+    "x": 920,
+    "y": 611,
+    "text": "text"
+  },
+  "16": {
+    "x": 1167,
+    "y": 545,
+    "text": "text"
+  },
+  "17": {
+    "x": 913,
+    "y": 159,
+    "text": "stochastic calculus"
+  },
+  "18": {
+    "x": 655,
+    "y": 572,
+    "text": "distribution theory"
+  },
+  "19": {
+    "x": 145,
+    "y": 480,
+    "text": "Math"
+  },
+  "20": {
+    "x": 599,
+    "y": 747,
+    "text": "turing, godel, shannon, chomsky, church"
+  },
+  "21": {
+    "x": 387,
+    "y": 674,
+    "text": "discrete mathmatics"
+  },
+  "box1": {
+    "x": 58,
+    "y": 101,
+    "text": "Things to study"
+  },
+  "box2": {
+    "x": 125,
+    "y": 927,
+    "text": "Study notes"
+  },
+  "box3": {
+    "x": 127,
+    "y": 1037,
+    "text": "Homework"
+  }
+}
