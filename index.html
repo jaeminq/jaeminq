@@ -121,7 +121,7 @@ document.addEventListener("mouseup", () => {
 document.addEventListener("input", e => {
     if (!e.target.classList.contains("box")) return;
 
-    boxes[e.target.id].text = e.target.textContent;
+    boxes[e.target.id].text = e.target.innerHTML;
 });
 
 addBoxBtn.onclick=()=>{
