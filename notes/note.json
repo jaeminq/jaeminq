@@ -1,0 +1,542 @@
+{
+  "0": {
+    "x": 401,
+    "y": 161,
+    "text": "calculus<div>calculus 1, 2 - apostol</div><div>multivariable calculus - stewart</div>"
+  },
+  "1": {
+    "x": 399,
+    "y": 273,
+    "text": "linear algebra<div>linear algebra - hoffman, kunge</div>"
+  },
+  "2": {
+    "x": 394,
+    "y": 364,
+    "text": "abstract algebra"
+  },
+  "3": {
+    "x": 917,
+    "y": 237,
+    "text": "category theory"
+  },
+  "4": {
+    "x": 1081,
+    "y": 240,
+    "text": "HoTT"
+  },
+  "5": {
+    "x": 919,
+    "y": 312,
+    "text": "manifolds ( poincare )"
+  },
+  "6": {
+    "x": 660,
+    "y": 1126,
+    "text": "server"
+  },
+  "7": {
+    "x": 890,
+    "y": 44,
+    "text": "todo: add more properties for box =&gt; grouping, current work view<div>taskbar</div>"
+  },
+  "8": {
+    "x": 1394,
+    "y": 1812,
+    "text": "stanford encyclopedia of philosophy"
+  },
+  "9": {
+    "x": 393,
+    "y": 588,
+    "text": "number theory"
+  },
+  "10": {
+    "x": 658,
+    "y": 393,
+    "text": "galois"
+  },
+  "11": {
+    "x": 918,
+    "y": 378,
+    "text": "Lie algebra"
+  },
+  "12": {
+    "x": 920,
+    "y": 668,
+    "text": "elliptic curve"
+  },
+  "13": {
+    "x": 514,
+    "y": 467,
+    "text": "analysis<div>Rudin 1, 2, 3</div><div>princeton 1, 2, 3, 4</div>"
+  },
+  "14": {
+    "x": 656,
+    "y": 638,
+    "text": "probability & statistic"
+  },
+  "15": {
+    "x": 920,
+    "y": 611,
+    "text": "p-adic"
+  },
+  "16": {
+    "x": 1167,
+    "y": 545,
+    "text": "langlands program"
+  },
+  "17": {
+    "x": 913,
+    "y": 159,
+    "text": "stochastic calculus"
+  },
+  "18": {
+    "x": 655,
+    "y": 572,
+    "text": "distribution theory"
+  },
+  "19": {
+    "x": 145,
+    "y": 480,
+    "text": "Math"
+  },
+  "20": {
+    "x": 2006,
+    "y": 615,
+    "text": "pricing derivatives"
+  },
+  "21": {
+    "x": 393,
+    "y": 674,
+    "text": "discrete mathmatics"
+  },
+  "22": {
+    "x": 1910,
+    "y": 960,
+    "text": "panel data analysis"
+  },
+  "23": {
+    "x": 1910,
+    "y": 900,
+    "text": "timeseries analysis"
+  },
+  "24": {
+    "x": 1910,
+    "y": 838,
+    "text": "Regression analysis"
+  },
+  "25": {
+    "x": 1714,
+    "y": 834,
+    "text": "econometrics"
+  },
+  "26": {
+    "x": 1912,
+    "y": 1134,
+    "text": "forecastingt"
+  },
+  "27": {
+    "x": 1910,
+    "y": 1076,
+    "text": "volatility modeling"
+  },
+  "28": {
+    "x": 1910,
+    "y": 1018,
+    "text": "cointegration"
+  },
+  "29": {
+    "x": 2070,
+    "y": 1364,
+    "text": "statistical arbitrage"
+  },
+  "30": {
+    "x": 2070,
+    "y": 1306,
+    "text": "high-frequency trading"
+  },
+  "31": {
+    "x": 2070,
+    "y": 1250,
+    "text": "algorithmic trading"
+  },
+  "32": {
+    "x": 1862,
+    "y": 1296,
+    "text": "quantitative finance"
+  },
+  "33": {
+    "x": 2072,
+    "y": 1532,
+    "text": "Risk and money management"
+  },
+  "34": {
+    "x": 2070,
+    "y": 1476,
+    "text": "backtesting"
+  },
+  "35": {
+    "x": 2070,
+    "y": 1422,
+    "text": "portfolio optimization"
+  },
+  "36": {
+    "x": 154,
+    "y": 1516,
+    "text": "physics"
+  },
+  "37": {
+    "x": 526,
+    "y": 1376,
+    "text": "landau lifshitz textbook"
+  },
+  "38": {
+    "x": 386,
+    "y": 1572,
+    "text": "classical mechanics"
+  },
+  "39": {
+    "x": 660,
+    "y": 1610,
+    "text": "field theory"
+  },
+  "40": {
+    "x": 830,
+    "y": 1672,
+    "text": "quantum field theory"
+  },
+  "41": {
+    "x": 382,
+    "y": 1442,
+    "text": "thermodynamics"
+  },
+  "42": {
+    "x": 588,
+    "y": 1468,
+    "text": "statistical mechanics"
+  },
+  "43": {
+    "x": 386,
+    "y": 1634,
+    "text": "electromagnetic"
+  },
+  "44": {
+    "x": 474,
+    "y": 1778,
+    "text": "relativity theory"
+  },
+  "45": {
+    "x": 472,
+    "y": 1710,
+    "text": "quantum mechanics"
+  },
+  "46": {
+    "x": 382,
+    "y": 1496,
+    "text": "fluid dynamics"
+  },
+  "47": {
+    "x": 828,
+    "y": 1794,
+    "text": "hawking"
+  },
+  "48": {
+    "x": 1770,
+    "y": 1686,
+    "text": "law"
+  },
+  "49": {
+    "x": 828,
+    "y": 1854,
+    "text": "yang-mills?"
+  },
+  "50": {
+    "x": 830,
+    "y": 1730,
+    "text": "qed ( feynman )"
+  },
+  "51": {
+    "x": 1572,
+    "y": 1728,
+    "text": "philosophy"
+  },
+  "52": {
+    "x": 1578,
+    "y": 2034,
+    "text": "engineering"
+  },
+  "53": {
+    "x": 1756,
+    "y": 1966,
+    "text": "semiconductor"
+  },
+  "54": {
+    "x": 2068,
+    "y": 1946,
+    "text": "architect"
+  },
+  "55": {
+    "x": 1856,
+    "y": 2056,
+    "text": "car"
+  },
+  "56": {
+    "x": 1758,
+    "y": 2088,
+    "text": "physical"
+  },
+  "57": {
+    "x": 2292,
+    "y": 1996,
+    "text": "nuclear"
+  },
+  "58": {
+    "x": 2046,
+    "y": 2110,
+    "text": "rocket"
+  },
+  "59": {
+    "x": 1856,
+    "y": 2120,
+    "text": "drone"
+  },
+  "60": {
+    "x": 1962,
+    "y": 1666,
+    "text": "공법"
+  },
+  "61": {
+    "x": 1878,
+    "y": 1668,
+    "text": "헌법"
+  },
+  "62": {
+    "x": 1962,
+    "y": 1612,
+    "text": "형법"
+  },
+  "63": {
+    "x": 1962,
+    "y": 1720,
+    "text": "민법"
+  },
+  "64": {
+    "x": 2100,
+    "y": 1678,
+    "text": "스스로 사례조사, 분석 할 수 있어야 한다."
+  },
+  "65": {
+    "x": 2050,
+    "y": 1612,
+    "text": "김중근 형법"
+  },
+  "66": {
+    "x": 2164,
+    "y": 1612,
+    "text": "누워서 읽는 법학"
+  },
+  "67": {
+    "x": 1766,
+    "y": 1832,
+    "text": "religion"
+  },
+  "68": {
+    "x": 1766,
+    "y": 1776,
+    "text": "politics"
+  },
+  "69": {
+    "x": 1766,
+    "y": 1548,
+    "text": "history"
+  },
+  "70": {
+    "x": 1766,
+    "y": 1602,
+    "text": "철학사"
+  },
+  "71": {
+    "x": 1910,
+    "y": 1992,
+    "text": "industrial"
+  },
+  "72": {
+    "x": 1878,
+    "y": 1750,
+    "text": "국제법"
+  },
+  "73": {
+    "x": 170,
+    "y": 2300,
+    "text": "chemistry"
+  },
+  "74": {
+    "x": 164,
+    "y": 1944,
+    "text": "biology"
+  },
+  "75": {
+    "x": 532,
+    "y": 1934,
+    "text": "BCI"
+  },
+  "76": {
+    "x": 430,
+    "y": 1936,
+    "text": "brain"
+  },
+  "77": {
+    "x": 320,
+    "y": 2226,
+    "text": "유기화학"
+  },
+  "78": {
+    "x": 320,
+    "y": 2084,
+    "text": "medicine"
+  },
+  "79": {
+    "x": 430,
+    "y": 2004,
+    "text": "유전자 분석"
+  },
+  "80": {
+    "x": 320,
+    "y": 2280,
+    "text": "무기화학"
+  },
+  "81": {
+    "x": 320,
+    "y": 2336,
+    "text": "열화학"
+  },
+  "82": {
+    "x": 320,
+    "y": 2388,
+    "text": "양자역학"
+  },
+  "83": {
+    "x": 2050,
+    "y": 1742,
+    "text": "상법, 부동산, 경영"
+  },
+  "84": {
+    "x": 318,
+    "y": 1884,
+    "text": "생태학"
+  },
+  "85": {
+    "x": 322,
+    "y": 2016,
+    "text": "의학"
+  },
+  "86": {
+    "x": 900,
+    "y": 1006,
+    "text": "Haskell"
+  },
+  "87": {
+    "x": 962,
+    "y": 946,
+    "text": "Rust"
+  },
+  "88": {
+    "x": 900,
+    "y": 948,
+    "text": "c++"
+  },
+  "89": {
+    "x": 900,
+    "y": 892,
+    "text": "c, linux"
+  },
+  "90": {
+    "x": 1192,
+    "y": 1024,
+    "text": "high-performance computing"
+  },
+  "91": {
+    "x": 1570,
+    "y": 516,
+    "text": "finance"
+  },
+  "92": {
+    "x": 1138,
+    "y": 1218,
+    "text": "map-reduce, GPU, grid"
+  },
+  "93": {
+    "x": 1138,
+    "y": 1154,
+    "text": "parallel"
+  },
+  "94": {
+    "x": 1236,
+    "y": 1154,
+    "text": "cluster"
+  },
+  "95": {
+    "x": 1138,
+    "y": 1092,
+    "text": "cloud"
+  },
+  "96": {
+    "x": 1702,
+    "y": 644,
+    "text": "capital asset pricing model"
+  },
+  "97": {
+    "x": 1760,
+    "y": 586,
+    "text": "asset and derivative pricing"
+  },
+  "98": {
+    "x": 1702,
+    "y": 522,
+    "text": "financial modeling"
+  },
+  "99": {
+    "x": 1702,
+    "y": 460,
+    "text": "risk management"
+  },
+  "100": {
+    "x": 1700,
+    "y": 400,
+    "text": "options and features"
+  },
+  "101": {
+    "x": 2006,
+    "y": 734,
+    "text": "binomial options pricing"
+  },
+  "102": {
+    "x": 2006,
+    "y": 678,
+    "text": "black-scholes model"
+  },
+  "103": {
+    "x": 484,
+    "y": 751,
+    "text": "turing, godel, shannon, chomsky, church, neumann"
+  },
+  "104": {
+    "x": 2006,
+    "y": 554,
+    "text": "finite difference"
+  },
+  "105": {
+    "x": 362,
+    "y": 931,
+    "text": "programming language"
+  },
+  "106": {
+    "x": 153,
+    "y": 1013,
+    "text": "Computer Science"
+  },
+  "107": {
+    "x": 361,
+    "y": 1003,
+    "text": "Data structure &amp; algorithm"
+  }
+}
