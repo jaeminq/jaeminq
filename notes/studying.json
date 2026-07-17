@@ -1,1 +1,243 @@
 
+{
+  "box0": {
+    "x": 389,
+    "y": 258,
+    "text": "basic mathmatics - lang"
+  },
+  "box1": {
+    "x": 55,
+    "y": 689,
+    "text": "linear algebra and geometry - alexei"
+  },
+  "box2": {
+    "x": 404,
+    "y": 618,
+    "text": "differential forms in algebraic topology"
+  },
+  "box3": {
+    "x": 59,
+    "y": 776,
+    "text": "algebra -lang"
+  },
+  "box4": {
+    "x": 608,
+    "y": 259,
+    "text": "calculus 1, 2 - apostol"
+  },
+  "box5": {
+    "x": 806,
+    "y": 258,
+    "text": "linear algebra - shilov"
+  },
+  "box6": {
+    "x": 61,
+    "y": 882,
+    "text": "topology and gropoids - brown"
+  },
+  "box7": {
+    "x": 60,
+    "y": 830,
+    "text": "quantum fields and strings: a course for mathmaticians"
+  },
+  "box8": {
+    "x": 53,
+    "y": 638,
+    "text": "complex analysis - ahlfors"
+  },
+  "box9": {
+    "x": 54,
+    "y": 585,
+    "text": "advanced calculus -loomis, sternberg"
+  },
+  "box10": {
+    "x": 452,
+    "y": 389,
+    "text": "mechanics - landau, lifshitz"
+  },
+  "box11": {
+    "x": 681,
+    "y": 390,
+    "text": "the classical theory of fields - landau, lifshits"
+  },
+  "box12": {
+    "x": 55,
+    "y": 132,
+    "text": "<a href=\"https://sheafification.com/category/resources/\">category theory references</a>"
+  },
+  "box13": {
+    "x": 66,
+    "y": 1127,
+    "text": "a concise cource in algebraic topology"
+  },
+  "box14": {
+    "x": 66,
+    "y": 1071,
+    "text": "cohomology & differential forms"
+  },
+  "box15": {
+    "x": 64,
+    "y": 987,
+    "text": "introduction to modern nummber theory"
+  },
+  "box16": {
+    "x": 62,
+    "y": 935,
+    "text": "algebraic geometry - harshorne"
+  },
+  "box17": {
+    "x": 66,
+    "y": 1181,
+    "text": "equivariant stable homotopy theory and the kervaire invariant problem"
+  },
+  "box18": {
+    "x": 403,
+    "y": 566,
+    "text": "lectures on differential geometry - sternberg"
+  },
+  "box19": {
+    "x": 405,
+    "y": 759,
+    "text": "riemann surfaces - ahlfors"
+  },
+  "box20": {
+    "x": 754,
+    "y": 589,
+    "text": "quantum mechanics - landau, lifshits"
+  },
+  "box21": {
+    "x": 757,
+    "y": 641,
+    "text": "equantum electrodynamics - landau, lifshits"
+  },
+  "box22": {
+    "x": 756,
+    "y": 695,
+    "text": "lectures on nuclear theory - landau"
+  },
+  "box23": {
+    "x": 681,
+    "y": 1028,
+    "text": "einstein manifolds"
+  },
+  "box24": {
+    "x": 404,
+    "y": 891,
+    "text": "gauge fields and cartan-ehresmann connections, part A"
+  },
+  "box25": {
+    "x": 540,
+    "y": 1097,
+    "text": "microlocal nanlysis for quantum fields on curved spacetimes"
+  },
+  "box26": {
+    "x": 851,
+    "y": 1025,
+    "text": "New physical kineticsnote"
+  },
+  "box27": {
+    "x": 851,
+    "y": 972,
+    "text": "statistical physics 2- landau, lifshits"
+  },
+  "box28": {
+    "x": 852,
+    "y": 921,
+    "text": "electrodynamics of continuous media- landau, lifshits"
+  },
+  "box29": {
+    "x": 852,
+    "y": 872,
+    "text": "ttheory of elasticity - landau, lifshits"
+  },
+  "box30": {
+    "x": 851,
+    "y": 821,
+    "text": "fluid mechanics - landau, lifshits"
+  },
+  "box31": {
+    "x": 851,
+    "y": 770,
+    "text": "statisical physics 1- landau, lifshits"
+  },
+  "box32": {
+    "x": 1965,
+    "y": 468,
+    "text": "finite element exterior calculus"
+  },
+  "box33": {
+    "x": 1959,
+    "y": 405,
+    "text": "geometric numerical integration"
+  },
+  "box34": {
+    "x": 1680,
+    "y": 435,
+    "text": "structure of synamical systems"
+  },
+  "box35": {
+    "x": 1275,
+    "y": 543,
+    "text": "mathmatical theory of baysian statistics"
+  },
+  "box36": {
+    "x": 1272,
+    "y": 489,
+    "text": "trades, quotes, and prices"
+  },
+  "box37": {
+    "x": 1269,
+    "y": 435,
+    "text": "theory of financial risk and derivative pricing"
+  },
+  "box38": {
+    "x": 1473,
+    "y": 609,
+    "text": "probability with martingales"
+  },
+  "box39": {
+    "x": 1473,
+    "y": 666,
+    "text": "stochastic differential equations and differential processes"
+  },
+  "box40": {
+    "x": 1413,
+    "y": 804,
+    "text": "generalixed functions - gelfand"
+  },
+  "box41": {
+    "x": 1689,
+    "y": 804,
+    "text": "cern-simons theory, matrix models, and topological strings"
+  },
+  "box42": {
+    "x": 1474,
+    "y": 69,
+    "text": "수능"
+  },
+  "box43": {
+    "x": 1548,
+    "y": 48,
+    "text": "영어"
+  },
+  "box44": {
+    "x": 1469,
+    "y": 271,
+    "text": "cs olympiad"
+  },
+  "box45": {
+    "x": 1468,
+    "y": 220,
+    "text": "physics olympiad"
+  },
+  "box46": {
+    "x": 1467,
+    "y": 168,
+    "text": "math olympiad"
+  },
+  "box47": {
+    "x": 53,
+    "y": 186,
+    "text": "<a href=\"theportal.wiki/wiki/Read>reading lists</a>"
+  }
+}
