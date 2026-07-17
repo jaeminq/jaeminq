@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Event Delegation Drag & Drop</title>
+<title>jaemin's page</title>
 
 <style>
+<<<<<<< HEAD
 body {
     margin: 0;
     height: 9000px;
@@ -12,154 +13,295 @@ body {
     position: relative;
     background: #f4f4f4;
 }
+=======
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+        background: #f0f0f0;
+    }
+>>>>>>> 31adfc4 (add toolar, sidebar, design)
 
-.box {
-    position: absolute;
-    padding: 10px;
-    border: 1px solid #555;
-    background: #fff8a6;
-    border-radius: 5px;
-    cursor: grab;
-    user-select: none;
-    box-sizing: border-box;
-}
+    #toolbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 40px;
+        background: #333;
+        color: white;
+        display: flex;
+        align-items: center;
+        padding: 0 10px;
+        gap: 10px;
+        z-index: 1001;
+    }
 
-.box:active {
-    cursor: grabbing;
-}
+    #sidebar {
+        position: fixed;
+        top: 40px;
+        left: 0;
+        bottom: 0;
+        width: 200px;
+        background: #222;
+        color: #ddd;
+        padding: 10px;
+        overflow-y: auto;
+        border-right: 1px solid #444;
+    }
+
+    #workspace {
+        position: absolute;
+        top: 40px;
+        left: 200px;
+        right: 0;
+        bottom: 0;
+        overflow: auto;
+        background: #1a1a1a;
+    }
+
+    .box {
+        position: absolute;
+        padding: 12px;
+        border: 2px solid #555;
+        background: #fff8a6;
+        border-radius: 6px;
+        cursor: grab;
+        user-select: none;
+        box-sizing: border-box;
+        min-width: 120px;
+        min-height: 60px;
+        box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+    }
+
+    .box:active {
+        cursor: grabbing;
+    }
+
+    .box:focus {
+        outline: 2px solid #007bff;
+        border-color: #007bff;
+    }
+
+    button {
+        padding: 6px 12px;
+        background: #555;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #777;
+    }
+
+    #sidebar button {
+        display: block;
+        width: 100%;
+        margin-bottom: 5px;
+        text-align: left;
+    }
 </style>
 </head>
 
 <body>
-<button id="addBoxBtn">add box</button>
-<input type="file" id="loadBtn">
-<button id="downloadBtn">download note</button>
+
+<div id="toolbar">
+    <button id="addBoxBtn">Add Box</button>
+    <button id="downloadBtn">Download JSON</button>
+    <input type="file" id="loadBtn" accept=".json">
+    <button id="saveAsBtn">Save As...</button>
+</div>
+
+<div id="sidebar"></div>
+<div id="workspace"></div>
+
 <script>
-// Model
-//const boxes = {"3":{"x":374,"y":150,"text":"text"},"4":{"x":650,"y":375,"text":"text"},"5":{"x":374,"y":375,"text":"text"},"6":{"x":374,"y":256,"text":"text"},"7":{"x":875,"y":252,"text":"text"},"8":{"x":877,"y":313,"text":"text"},"9":{"x":30,"y":30,"text":"text"},"box1":{"x":76,"y":219,"text":"Things to study"},"box2":{"x":52,"y":630,"text":"Study notes"},"box3":{"x":39,"y":725,"text":"Homework"}};
+// ============== Model & ID Generator ==============
 let boxes = {};
-const ID=(()=>{
-    let next=Object.keys(boxes).length;
-    return ()=> next++;
-})()
-// ---------- Render ----------
+let nextId = 0;
 
-
-async function loadNotes() {
-    const response = await fetch("note.json");
-    boxes = await response.json();
-    renderBoxes();
+// Improved ID generator
+function generateId() {
+    let id;
+    do {
+        id = "box" + nextId++;
+    } while (boxes[id]);
+    return id;
 }
-loadNotes();
 
-function renderBoxes() {
+// ============== Render ==============
+const workspace = document.getElementById("workspace");
+
+function renderBox(id, boxData) {
+    const div = document.createElement("div");
+    div.id = id;
+    div.className = "box";
+    div.contentEditable = true;
+    div.textContent = boxData.text || "";
+
+    div.style.left = (boxData.x || 30) + "px";
+    div.style.top = (boxData.y || 30) + "px";
+
+    workspace.appendChild(div);
+}
+
+function renderAllBoxes() {
+    // Clear existing boxes
+    workspace.innerHTML = "";
     for (const id in boxes) {
         renderBox(id, boxes[id]);
     }
 }
-function renderBox(id, box){
 
-    const div = document.createElement("div");
-
-    div.id = id;
-    div.className = "box";
-    div.textContent = box.text;
-    div.contentEditable = true;
-
-    div.style.left = box.x + "px";
-    div.style.top = box.y + "px";
-    
-    document.body.appendChild(div);
+// ============== Load / Save ==============
+async function loadNotes(filename = "note.json") {
+    try {
+        const response = await fetch("notes/"+filename+".json");
+        if (!response.ok) throw new Error("File not found");
+        boxes = await response.json();
+        
+        // Update nextId to avoid conflicts
+        updateNextId();
+        renderAllBoxes();
+    } catch (e) {
+        console.warn("Could not load", filename, "- starting fresh");
+        boxes = {};
+    }
 }
 
+function updateNextId() {
+    nextId = 0;
+    for (const key in boxes) {
+        if (key.startsWith("box")) {
+            const num = parseInt(key.slice(3));
+            if (!isNaN(num)) nextId = Math.max(nextId, num + 1);
+        }
+    }
+}
 
-// ---------- Event Delegation ----------
+async function loadSidebar() {
+    try {
+        const files = await fetch("index.json").then(r => r.json());
+        const sidebar = document.getElementById("sidebar");
+
+        for (const file of files) {
+            const btn = document.createElement("button");
+            btn.textContent = file;
+            btn.onclick = () => loadRemote(file);
+            sidebar.appendChild(btn);
+        }
+    } catch (e) {
+        console.warn("index.json not found - sidebar disabled");
+    }
+}
+
+async function loadRemote(filename) {
+    await loadNotes(filename);
+}
+
+// ============== Drag & Drop ==============
 let activeBox = null;
-let offsetX = 0;
-let offsetY = 0;
+let offsetX = 0, offsetY = 0;
 
-document.addEventListener("mousedown", (e) => {
-
-    if (!e.target.classList.contains("box"))
-        return;
+workspace.addEventListener("mousedown", (e) => {
+    if (!e.target.classList.contains("box")) return;
 
     activeBox = e.target;
-
     offsetX = e.clientX - activeBox.offsetLeft;
     offsetY = e.clientY - activeBox.offsetTop;
 
     activeBox.style.zIndex = 1000;
 });
 
-document.addEventListener("mousemove", (e) => {
+workspace.addEventListener("mousemove", (e) => {
+    if (!activeBox) return;
 
-    if (!activeBox)
-        return;
+    let x = e.clientX - offsetX;
+    let y = e.clientY - offsetY;
 
-    const x = e.clientX - offsetX;
-    const y = e.clientY - offsetY;
+    // Optional: prevent going off-screen
+    x = Math.max(0, x);
+    y = Math.max(0, y);
 
     activeBox.style.left = x + "px";
     activeBox.style.top = y + "px";
 
-    // Keep model synchronized
+    // Sync model
     boxes[activeBox.id].x = x;
     boxes[activeBox.id].y = y;
 });
 
-document.addEventListener("mouseup", () => {
-
-    if (!activeBox)
-        return;
-
-    activeBox.style.zIndex = "";
-    activeBox = null;
-
-    console.log(boxes); // Current positions
+workspace.addEventListener("mouseup", () => {
+    if (activeBox) {
+        activeBox.style.zIndex = "";
+        activeBox = null;
+    }
 });
-    
-document.addEventListener("input", e => {
+
+// ============== Text Editing ==============
+workspace.addEventListener("input", (e) => {
     if (!e.target.classList.contains("box")) return;
-
-    boxes[e.target.id].text = e.target.innerHTML;
+    boxes[e.target.id].text = e.target.textContent;
 });
 
-addBoxBtn.onclick=()=>{
-    const id=ID();
-    const box={x: 30, y: 30, text: "text"};
-    boxes[id]=box;
+// ============== Buttons ==============
+document.getElementById("addBoxBtn").onclick = () => {
+    const id = generateId();
+    const box = { x: 50, y: 50, text: "New note" };
+    boxes[id] = box;
     renderBox(id, box);
-}
+};
 
-downloadBtn.onclick=()=>{
+document.getElementById("downloadBtn").onclick = () => {
+    const data = JSON.stringify(boxes, null, 2);
+    const blob = new Blob([data], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "notes.json";
+    a.click();
+    URL.revokeObjectURL(url);
+};
+
+document.getElementById("loadBtn").onchange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function() {
+        try {
+            boxes = JSON.parse(reader.result);
+            updateNextId();
+            renderAllBoxes();
+        } catch (err) {
+            alert("Invalid JSON file");
+        }
+    };
+    reader.readAsText(file);
+};
+
+// Simple Save As (downloads with custom name)
+document.getElementById("saveAsBtn").onclick = () => {
+    const name = prompt("Enter filename (e.g. project-notes.json)", "notes.json");
+    if (!name) return;
 
     const data = JSON.stringify(boxes, null, 2);
+    const blob = new Blob([data], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = name;
+    a.click();
+    URL.revokeObjectURL(url);
+};
 
-    const blob = new Blob(
-        [data],
-        {type:"application/json"}
-    );
-
-    const link = document.createElement("a");
-
-    link.href = URL.createObjectURL(blob);
-    link.download = "boxes.json";
-
-    link.click();
-}
-
-loadBtn.onchange= e => {
-        const file = e.target.files[0];
-
-        const reader = new FileReader();
-        reader.onload = function(){
-            const data = JSON.parse(reader.result);
-            Object.assign(boxes, data);
-            document.querySelectorAll(".box").forEach(box => box.remove());
-            renderBoxes();
-        };
-    reader.readAsText(file);
-    };
+// ============== Init ==============
+loadNotes();     // default note
+loadSidebar();   // load available files into sidebar
 </script>
 
 </body>
