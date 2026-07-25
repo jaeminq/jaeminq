@@ -50,6 +50,11 @@
         background: #1a1a1a;
     }
 
+    #workspace.drag-over {
+        outline: 3px dashed #007bff;
+        outline-offset: -3px;
+    }
+
     .box {
         position: absolute;
         border: 2px solid #555;
@@ -69,6 +74,91 @@
     .box:focus {
         outline: 2px solid #007bff;
         border-color: #007bff;
+    }
+
+    /* ===== Table box ===== */
+    .table-box {
+        background: #d8f0ff;
+        cursor: default;
+        min-width: 150px;
+    }
+
+    .table-handle {
+        cursor: grab;
+        background: #333;
+        color: #fff;
+        font-size: 10px;
+        letter-spacing: 1px;
+        padding: 3px 6px;
+        margin: -10px -10px 6px -10px;
+        border-radius: 4px 4px 0 0;
+        user-select: none;
+    }
+    .table-handle:active {
+        cursor: grabbing;
+    }
+
+    .table-controls {
+        display: flex;
+        gap: 4px;
+        margin-bottom: 6px;
+    }
+    .table-controls button {
+        padding: 2px 6px;
+        font-size: 11px;
+    }
+
+    .note-table {
+        border-collapse: collapse;
+        cursor: text;
+    }
+    .note-table td {
+        border: 1px solid #888;
+        padding: 4px 8px;
+        min-width: 40px;
+        background: #fff;
+        outline: none;
+    }
+    .note-table td:focus {
+        outline: 2px solid #007bff;
+    }
+
+    /* ===== Image box ===== */
+    .image-box {
+        background: #e8e8e8;
+        cursor: default;
+        min-width: 100px;
+    }
+
+    .image-handle {
+        cursor: grab;
+        background: #333;
+        color: #fff;
+        font-size: 10px;
+        letter-spacing: 1px;
+        padding: 3px 6px;
+        margin: -10px -10px 6px -10px;
+        border-radius: 4px 4px 0 0;
+        user-select: none;
+    }
+    .image-handle:active {
+        cursor: grabbing;
+    }
+
+    .image-controls {
+        display: flex;
+        gap: 4px;
+        margin-bottom: 6px;
+    }
+    .image-controls button {
+        padding: 2px 6px;
+        font-size: 11px;
+    }
+
+    .note-image {
+        display: block;
+        max-width: none;
+        border-radius: 4px;
     }
 
     button {
@@ -97,6 +187,9 @@
 
 <div id="toolbar">
     <button id="addBoxBtn">Add Box</button>
+    <button id="addTableBtn">Add Table</button>
+    <button id="addImageBtn">Add Image</button>
+    <input type="file" id="imageFileInput" accept="image/*" style="display:none">
     <button id="downloadBtn">Download JSON</button>
     <input type="file" id="loadBtn" accept=".json">
     <button id="saveAsBtn">Save As...</button>
@@ -125,14 +218,187 @@ const workspace = document.getElementById("workspace");
 function renderBox(id, boxData) {
     const div = document.createElement("div");
     div.id = id;
-    div.className = "box";
-    div.contentEditable = true;
-    div.innerHTML = boxData.text || "";
-
     div.style.left = (boxData.x || 30) + "px";
     div.style.top = (boxData.y || 30) + "px";
 
+    if (boxData.type === "table") {
+        div.className = "box table-box";
+        renderTableContent(div, id, boxData);
+    } else if (boxData.type === "image") {
+        div.className = "box image-box";
+        renderImageContent(div, id, boxData);
+    } else {
+        div.className = "box";
+        div.contentEditable = true;
+        div.innerHTML = boxData.text || "";
+    }
+
     workspace.appendChild(div);
+}
+
+function rerenderBox(id) {
+    const old = document.getElementById(id);
+    if (old) old.remove();
+    renderBox(id, boxes[id]);
+}
+
+// ----- Table box -----
+function renderTableContent(div, id, boxData) {
+    if (!boxData.table || !Array.isArray(boxData.table.data)) {
+        boxData.table = { data: [["", ""], ["", ""]] };
+    }
+
+    div.innerHTML = "";
+
+    // Drag handle (tables can't be dragged by clicking their body, since
+    // that's needed for editing cells)
+    const handle = document.createElement("div");
+    handle.className = "table-handle";
+    handle.textContent = "\u22EE\u22EE drag";
+    div.appendChild(handle);
+
+    // Row/column controls
+    const controls = document.createElement("div");
+    controls.className = "table-controls";
+
+    const addRowBtn = document.createElement("button");
+    addRowBtn.textContent = "+ row";
+    addRowBtn.onclick = () => addTableRow(id);
+
+    const delRowBtn = document.createElement("button");
+    delRowBtn.textContent = "- row";
+    delRowBtn.onclick = () => delTableRow(id);
+
+    const addColBtn = document.createElement("button");
+    addColBtn.textContent = "+ col";
+    addColBtn.onclick = () => addTableCol(id);
+
+    const delColBtn = document.createElement("button");
+    delColBtn.textContent = "- col";
+    delColBtn.onclick = () => delTableCol(id);
+
+    controls.append(addRowBtn, delRowBtn, addColBtn, delColBtn);
+    div.appendChild(controls);
+
+    // The table itself
+    const table = document.createElement("table");
+    table.className = "note-table";
+
+    boxData.table.data.forEach((row, rIdx) => {
+        const tr = document.createElement("tr");
+        row.forEach((cellText, cIdx) => {
+            const td = document.createElement("td");
+            td.contentEditable = true;
+            td.textContent = cellText;
+            td.addEventListener("input", () => {
+                boxes[id].table.data[rIdx][cIdx] = td.textContent;
+            });
+            // Prevent a click-drag inside a cell from bubbling into the
+            // workspace drag handler
+            td.addEventListener("mousedown", (e) => e.stopPropagation());
+            tr.appendChild(td);
+        });
+        table.appendChild(tr);
+    });
+
+    div.appendChild(table);
+}
+
+function addTableRow(id) {
+    const t = boxes[id].table;
+    const cols = t.data.length ? t.data[0].length : 1;
+    t.data.push(new Array(cols).fill(""));
+    rerenderBox(id);
+}
+
+function delTableRow(id) {
+    const t = boxes[id].table;
+    if (t.data.length > 1) t.data.pop();
+    rerenderBox(id);
+}
+
+function addTableCol(id) {
+    const t = boxes[id].table;
+    t.data.forEach(row => row.push(""));
+    rerenderBox(id);
+}
+
+function delTableCol(id) {
+    const t = boxes[id].table;
+    if (t.data[0] && t.data[0].length > 1) {
+        t.data.forEach(row => row.pop());
+    }
+    rerenderBox(id);
+}
+
+// ----- Image box -----
+function renderImageContent(div, id, boxData) {
+    div.innerHTML = "";
+
+    const handle = document.createElement("div");
+    handle.className = "image-handle";
+    handle.textContent = "\u22EE\u22EE drag";
+    div.appendChild(handle);
+
+    const controls = document.createElement("div");
+    controls.className = "image-controls";
+
+    const biggerBtn = document.createElement("button");
+    biggerBtn.textContent = "+";
+    biggerBtn.title = "Bigger";
+    biggerBtn.onclick = () => resizeImage(id, 40);
+
+    const smallerBtn = document.createElement("button");
+    smallerBtn.textContent = "\u2212";
+    smallerBtn.title = "Smaller";
+    smallerBtn.onclick = () => resizeImage(id, -40);
+
+    const replaceBtn = document.createElement("button");
+    replaceBtn.textContent = "replace";
+    replaceBtn.onclick = () => triggerReplaceImage(id);
+
+    controls.append(biggerBtn, smallerBtn, replaceBtn);
+    div.appendChild(controls);
+
+    const img = document.createElement("img");
+    img.className = "note-image";
+    img.src = boxData.image || "";
+    img.draggable = false; // avoid native browser image drag interfering
+    img.style.width = (boxData.width || 200) + "px";
+    // Prevent native browser drag-ghost of the <img> itself
+    img.addEventListener("mousedown", (e) => e.preventDefault());
+    div.appendChild(img);
+}
+
+function resizeImage(id, delta) {
+    const boxData = boxes[id];
+    const newWidth = Math.max(50, Math.min(1600, (boxData.width || 200) + delta));
+    boxData.width = newWidth;
+    rerenderBox(id);
+}
+
+let replaceTargetId = null;
+function triggerReplaceImage(id) {
+    replaceTargetId = id;
+    document.getElementById("imageFileInput").click();
+}
+
+function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+    });
+}
+
+async function addImageBoxFromFile(file, x, y) {
+    if (!file.type.startsWith("image/")) return;
+    const base64 = await fileToBase64(file);
+    const id = generateId();
+    const box = { x: x, y: y, type: "image", image: base64, width: 200 };
+    boxes[id] = box;
+    renderBox(id, box);
 }
 
 function renderAllBoxes() {
@@ -189,14 +455,25 @@ async function loadRemote(filename) {
     await loadNotes(filename);
 }
 
-// ============== Drag & Drop ==============
+// ============== Drag & Drop (moving boxes) ==============
 let activeBox = null;
 let offsetX = 0, offsetY = 0;
 
 workspace.addEventListener("mousedown", (e) => {
-    if (!e.target.classList.contains("box")) return;
+    const boxEl = e.target.closest(".box");
+    if (!boxEl) return;
 
-    activeBox = e.target;
+    if (boxEl.classList.contains("table-box") || boxEl.classList.contains("image-box")) {
+        // Tables and images only drag from their handle, so clicking a cell
+        // or a control button doesn't move the box
+        if (!e.target.classList.contains("table-handle") && !e.target.classList.contains("image-handle")) return;
+    } else {
+        // Preserve original behavior: only a direct hit on the box (not a
+        // nested <div> inside its text) starts a drag
+        if (e.target !== boxEl) return;
+    }
+
+    activeBox = boxEl;
     offsetX = e.clientX - activeBox.offsetLeft;
     offsetY = e.clientY - activeBox.offsetTop;
 
@@ -228,9 +505,42 @@ workspace.addEventListener("mouseup", () => {
     }
 });
 
+// ============== Drag & Drop (uploading image files from the OS) ==============
+workspace.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    if (e.dataTransfer && Array.from(e.dataTransfer.types || []).includes("Files")) {
+        workspace.classList.add("drag-over");
+        e.dataTransfer.dropEffect = "copy";
+    }
+});
+
+workspace.addEventListener("dragleave", (e) => {
+    if (e.target === workspace) {
+        workspace.classList.remove("drag-over");
+    }
+});
+
+workspace.addEventListener("drop", async (e) => {
+    e.preventDefault();
+    workspace.classList.remove("drag-over");
+
+    const files = e.dataTransfer ? Array.from(e.dataTransfer.files) : [];
+    const imageFiles = files.filter(f => f.type.startsWith("image/"));
+    if (imageFiles.length === 0) return;
+
+    const rect = workspace.getBoundingClientRect();
+    const baseX = e.clientX - rect.left + workspace.scrollLeft;
+    const baseY = e.clientY - rect.top + workspace.scrollTop;
+
+    for (let i = 0; i < imageFiles.length; i++) {
+        // stagger multiple dropped images so they don't stack exactly
+        await addImageBoxFromFile(imageFiles[i], baseX + i * 20, baseY + i * 20);
+    }
+});
+
 // ============== Text Editing ==============
 workspace.addEventListener("input", (e) => {
-    if (!e.target.classList.contains("box")) return;
+    if (!e.target.classList.contains("box") || e.target.classList.contains("table-box") || e.target.classList.contains("image-box")) return;
     boxes[e.target.id].text = e.target.textContent;
 });
 
@@ -240,6 +550,38 @@ document.getElementById("addBoxBtn").onclick = () => {
     const box = { x: 50, y: 50, text: "New note" };
     boxes[id] = box;
     renderBox(id, box);
+};
+
+document.getElementById("addTableBtn").onclick = () => {
+    const id = generateId();
+    const box = {
+        x: 50,
+        y: 50,
+        type: "table",
+        table: { data: [["", ""], ["", ""]] }
+    };
+    boxes[id] = box;
+    renderBox(id, box);
+};
+
+document.getElementById("addImageBtn").onclick = () => {
+    replaceTargetId = null; // null means "create a new box" instead of replacing
+    document.getElementById("imageFileInput").click();
+};
+
+document.getElementById("imageFileInput").onchange = async (e) => {
+    const file = e.target.files[0];
+    e.target.value = ""; // reset so picking the same file again still fires change
+    if (!file || !file.type.startsWith("image/")) return;
+
+    if (replaceTargetId) {
+        const base64 = await fileToBase64(file);
+        boxes[replaceTargetId].image = base64;
+        rerenderBox(replaceTargetId);
+        replaceTargetId = null;
+    } else {
+        await addImageBoxFromFile(file, 50, 50);
+    }
 };
 
 document.getElementById("downloadBtn").onclick = () => {
@@ -290,6 +632,7 @@ document.getElementById("saveAsBtn").onclick = () => {
 // ============== Init ==============
 loadNotes();     // default note
 loadSidebar();   // load available files into sidebar
+
 </script>
 
 </body>
