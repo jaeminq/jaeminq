@@ -547,7 +547,11 @@ workspace.addEventListener("input", (e) => {
 // ============== Buttons ==============
 document.getElementById("addBoxBtn").onclick = () => {
     const id = generateId();
-    const box = { x: 50, y: 50, text: "New note" };
+    const scrollX = window.scrollX || document.documentElement.scrollLeft || 0;
+    const scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+    const x = scrollX + 50;
+    const y = scrollY + 50;
+    const box = { x: x, y: y, text: "New note" };
     boxes[id] = box;
     renderBox(id, box);
 };
