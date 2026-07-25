@@ -538,5 +538,35 @@
     "x": 361,
     "y": 1003,
     "text": "Data structure &amp; algorithm"
+  },
+  "box0": {
+    "x": 370,
+    "y": 1110,
+    "text": "operating system"
+  },
+  "box1": {
+    "x": 369,
+    "y": 1164,
+    "text": "network"
+  },
+  "box2": {
+    "x": 658,
+    "y": 1046,
+    "text": "database"
+  },
+  "box3": {
+    "x": 656,
+    "y": 967,
+    "text": "compiler"
+  },
+  "box4": {
+    "x": 366,
+    "y": 870,
+    "text": "AI, ML, vision, graphic"
+  },
+  "box5": {
+    "x": 1003,
+    "y": 1777,
+    "text": "CFT/Ads"
   }
 }
