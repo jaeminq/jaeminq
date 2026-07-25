@@ -1,0 +1,47 @@
+{
+  "box0": {
+    "x": 168,
+    "y": 662,
+    "text": "leet"
+  },
+  "box1": {
+    "x": 261,
+    "y": 559,
+    "text": "25 수능"
+  },
+  "box2": {
+    "x": 167,
+    "y": 720,
+    "text": "olympiad"
+  },
+  "box3": {
+    "x": 167,
+    "y": 559,
+    "text": "26 수능"
+  },
+  "box4": {
+    "x": 283,
+    "y": 124,
+    "text": "누워서 읽는 법학"
+  },
+  "box5": {
+    "x": 163,
+    "y": 125,
+    "text": "김중근 형법"
+  },
+  "box6": {
+    "x": 170,
+    "y": 309,
+    "text": "multivariable calculus -stewart"
+  },
+  "box7": {
+    "x": 170,
+    "y": 363,
+    "text": "topology -munkre"
+  },
+  "box8": {
+    "x": 168,
+    "y": 253,
+    "text": "linear algebra -hoffman, kunge"
+  }
+}
